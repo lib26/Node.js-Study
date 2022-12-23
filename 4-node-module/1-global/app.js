@@ -2,12 +2,13 @@
 const fs = require('fs');
 
 // node에서의 글로벌 객체 (전역 객체)는 global이라고 한다.
+// 반대로 브라우저에서의 글로벌 객체는 Window이다.
 console.log(global);
 
 // 전역 객체에 hello 함수를 정의할 수 있다.
 global.hello = () => {
   // 사실 console.log도 전역 객체를 사용했던 것..
-  global.console.log('hello');
+  global.console.log('hello11');
 };
 
 global.hello();
