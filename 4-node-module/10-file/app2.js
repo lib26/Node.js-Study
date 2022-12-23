@@ -1,3 +1,4 @@
+// 모든게 다 프로미스 즉, 비동기로 처리된다.
 const fs = require('fs').promises;
 
 // reading a file

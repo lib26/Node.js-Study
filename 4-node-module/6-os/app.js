@@ -1,3 +1,4 @@
+// 노드가 동작하고 있는 os 정보를 가져오는 방법
 const os = require('os');
 
 console.log(os.EOL === '\n');

@@ -1,3 +1,4 @@
+// 노드 프로그램이 동작하고 있는 프로세스에 관한 정보를 가져오는 법
 const process = require('process');
 
 console.log(process.execPath);

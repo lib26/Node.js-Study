@@ -1,3 +1,5 @@
+// file 시스템에 접근하는 방법
+
 const path = require('path');
 
 // POSIX (Unix: Mac, Linux): 'Users/temp/myfile.html'
