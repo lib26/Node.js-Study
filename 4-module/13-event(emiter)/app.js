@@ -1,3 +1,4 @@
+// Emitter는 커스텀 이벤트를 만들어서 발생키는 개념
 const EventEmitter = require('events');
 const emitter = new EventEmitter();
 
