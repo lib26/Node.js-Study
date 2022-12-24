@@ -40,13 +40,13 @@ function processFiles(files) {
 }
 
 function isVideoFile(file) {
-  const regExp = /(mp4|mov)$/gm;
+  const regExp = /(mp4|mov)$/gm; // 확장자 표현식
   const match = file.match(regExp);
   return !!match;
 }
 
 function isCapturedFile(file) {
-  const regExp = /(png|aae)$/gm;
+  const regExp = /(png|aae)$/gm; // 확장자 표현식
   const match = file.match(regExp);
   return !!match;
 }
