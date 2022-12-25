@@ -27,7 +27,7 @@ const server = http.createServer((req, res) => {
       // 모든 data가 받아지는 end라는 이벤트가 발생하면 콜백함수가 실행된다
       req.on('end', () => {
         const bodyStr = Buffer.concat(body).toString();
-        const course = JSON.parse(bodyStr); // string을 json으로 변환
+        const course = JSON.parse(bodyStr); // string을 json??으로 변환
         courses.push(course);
         console.log(course);
         // 응답을 클라이언트한테 보내준다.

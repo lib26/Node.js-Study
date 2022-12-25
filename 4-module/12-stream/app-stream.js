@@ -1,8 +1,8 @@
 const fs = require('fs');
 
 const data = [];
-// 버퍼에 있는 데이터를 스트리밍해서(조금조금씩) 읽는다
 
+// 버퍼에 있는 데이터를 스트리밍해서(조금조금씩) 읽는다
 fs.createReadStream('./file.txt', {
   //   highWaterMark: 8, // 64 kbytes 스트림이 한번에 처리할 수 있는 양. 기본이 64kb인듯
   //   encoding: 'utf-8',

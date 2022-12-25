@@ -8,4 +8,6 @@ writeStream.on('finish', () => {
 
 writeStream.write('hello!');
 writeStream.write('world!');
+
+// finish 이벤트를 발생시킴
 writeStream.end();

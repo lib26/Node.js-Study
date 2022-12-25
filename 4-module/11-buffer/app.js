@@ -9,7 +9,7 @@ console.log(buf[0]);
 console.log(buf[1]);
 console.log(buf.toString());
 
-// create
+// create 버퍼를 만든다
 const buf2 = Buffer.alloc(2);
 const buf3 = Buffer.allocUnsafe(2); // fast
 buf2[0] = 72;
@@ -18,6 +18,6 @@ buf2.copy(buf3);
 console.log(buf2.toString());
 console.log(buf3.toString());
 
-// concat
+// concat 이어붙이기
 const newBuf = Buffer.concat([buf, buf2, buf3]);
 console.log(newBuf.toString());
