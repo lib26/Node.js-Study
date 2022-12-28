@@ -16,8 +16,9 @@ let tweets = [
   },
 ];
 
+// async 붙었으니 리턴은 다 promise로 나감
 export async function getAll() {
-  return tweets;
+  return tweets; // promise로 리턴
 }
 
 export async function getAllByUsername(username) {
