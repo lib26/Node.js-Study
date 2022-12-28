@@ -62,8 +62,10 @@ router.post('/', (req, res, next) => {
 
 // PUT /tweets/:id
 router.put('/:id', (req, res, next) => {
-  const id = req.params.id;
-  const text = req.body.text;
+  const id = req.params.id; // { id: '2' }
+  const text = req.body.text; // string 타입 문자
+  console.log(req.params);
+  console.log(text);
   const tweet = tweets.find((tweet) => tweet.id === id);
   if (tweet) {
     tweet.text = text;
@@ -75,6 +77,7 @@ router.put('/:id', (req, res, next) => {
 
 // DELETE /tweets/:id
 router.delete('/:id', (req, res, next) => {
+  console.log(req.params); // { id: '2' }
   const id = req.params.id;
   tweets = tweets.filter((tweet) => tweet.id !== id);
   res.status(204).json(tweets);

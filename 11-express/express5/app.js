@@ -1,6 +1,7 @@
 import express from 'express';
 import fs from 'fs';
 import fsAsync from 'fs/promises';
+// import 'express-async-errors'; 이거 익스프레스5 이상부터는 안해줘도 됨
 
 const app = express();
 
@@ -11,28 +12,9 @@ app.use(express.json());
 // 마지막 에러처리 미들웨어에서 해줄 수 있다.
 // 하지만 각각의 미들웨어에서 에러처리 메세지를 사용자에게 보내는 것이 좋은듯하다.
 
-// 비동기. callback에서 에러 처리
-app.get('/file', (req, res) => {
-  fs.readFile('/file1.txt', (err, data) => {
-    if (err) {
-      res.sendStatus(404);
-    }
-  });
-});
-
-// 동기. try catch로 에러 처리
-app.get('/file1', (req, res) => {
-  try {
-    const data = fs.readFileSync('/file1.txt');
-    res.send(data);
-  } catch (error) {
-    res.sendStatus(404);
-  }
-});
-
 // promise 리턴하는 미들웨어는 에러처리 미들웨어에서 감지한다
 app.get('/file2', async (req, res) => {
-  return fsAsync
+  return fsAsync // 앞에 return을 붙임으로써 promise에서 발생한 에러도 내부에서 처리하는 것이 아닌 외부 에러처리 미들웨어에서도 감지할 수 있다.
     .readFile('/file2.txt') //
     .then((data) => res.send(data));
 });
