@@ -17,7 +17,10 @@ const token = jwt.sign(
 setTimeout(() => {
   jwt.verify(token, secret, (error, decoded) => {
     console.log(error, decoded);
+    // 만약 인증 성공시
+    // error : null
+    // decoded : { id: 'ellie', isAdmin: false, iat: 1672328616, exp: 1672328618 }
   });
-}, 3000);
+}, 1000);
 
 console.log(token);

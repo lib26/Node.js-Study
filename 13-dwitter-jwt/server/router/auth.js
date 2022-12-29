@@ -7,6 +7,7 @@ import { isAuth } from '../middleware/auth.js';
 
 const router = express.Router();
 
+// 유효성 검사
 const validateCredential = [
   body('username')
     .trim()
@@ -30,10 +31,14 @@ const validateSignup = [
   validate,
 ];
 
+// POST /auth/signup
 router.post('/signup', validateSignup, authController.signup);
 
+// POST /auth/login
 router.post('/login', validateCredential, authController.login);
 
+// GET /auth/me
+// 로그인이 되어있다면 isAuth로 토큰을 확인하고 컨트롤러 처리
 router.get('/me', isAuth, authController.me);
 
 export default router;
