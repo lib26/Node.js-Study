@@ -2,11 +2,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import {} from 'express-async-errors';
 import * as userRepository from '../data/auth.js';
-
-// TODO: Make it secure!
-const jwtSecretKey = 'F2dN7x8HVzBWaQuEEDnhsvHXRWqAR63z'; // 시크릿 키
-const jwtExpiresInDays = '2d';
-const bcryptSaltRounds = 12;
+import { config } from '../config.js';
 
 // 회원 가입
 export async function signup(req, res) {
@@ -16,7 +12,7 @@ export async function signup(req, res) {
   if (found) {
     return res.status(409).json({ message: `${username} already exists` });
   }
-  const hashed = await bcrypt.hash(password, bcryptSaltRounds);
+  const hashed = await bcrypt.hash(password, config.bcrypt.saltRounds);
   const userId = await userRepository.createUser({
     username,
     password: hashed,
@@ -49,7 +45,10 @@ export async function login(req, res) {
 
 // 토큰 생성
 function createJwtToken(id) {
-  return jwt.sign({ id }, jwtSecretKey, { expiresIn: jwtExpiresInDays });
+  console.log(config.jwt.secretKey);
+  return jwt.sign({ id }, config.jwt.secretKey, {
+    expiresIn: config.jwt.expiresInSec,
+  });
   // 파라미터는 순서대로 payload(userID), 시크릿키, 만료옵션(선택사항)
 }
 

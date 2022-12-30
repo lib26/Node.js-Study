@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import * as userRepository from '../data/auth.js';
+import { config } from '../config.js';
 
 const AUTH_ERROR = { message: 'Authentication Error' };
 
@@ -13,11 +14,10 @@ export const isAuth = async (req, res, next) => {
   // auth가 있다면 이제 토큰 값을 가져온다
   const token = authHeader.split(' ')[1];
 
-  // TODO: Make it secure!
   // 받아온 토큰이 유효한지 판단한다
   jwt.verify(
     token, // 받아온 토큰 값
-    'F2dN7x8HVzBWaQuEEDnhsvHXRWqAR63z', // 시크릿 키
+    config.jwt.secretKey, // 시크릿 키
     async (error, decoded) => {
       if (error) {
         return res.status(401).json(AUTH_ERROR);
@@ -33,7 +33,7 @@ export const isAuth = async (req, res, next) => {
       }
 
       // 앞으로 이어지는 미들웨어에서도 동일하게 접근해야하는 데이터라면
-      // 이렇게 내가 만든 커스텀 데이터를 request에 해더??에 등록해줄 수 있다
+      // 이렇게 내가 만든 커스텀 데이터를 request에 등록해줄 수 있다
       req.userId = user.id; // req.customData 즉, bob이면 '1'을 할당
       req.token = token;
       next();
