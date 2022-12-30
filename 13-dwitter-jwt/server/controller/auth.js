@@ -50,7 +50,7 @@ export async function login(req, res) {
 // 토큰 생성
 function createJwtToken(id) {
   return jwt.sign({ id }, jwtSecretKey, { expiresIn: jwtExpiresInDays });
-  // 파라미터는 순서대로 payload, 시크릿키, 만료옵션(선택사항)
+  // 파라미터는 순서대로 payload(userID), 시크릿키, 만료옵션(선택사항)
 }
 
 //
@@ -60,9 +60,5 @@ export async function me(req, res, next) {
   if (!user) {
     return res.status(404).json({ message: 'User not found' });
   }
-
-  //
-  console.log('컨트롤러3', req.token); // 이거 undefined 인데
-  //
   res.status(200).json({ token: req.token, username: user.username });
 }

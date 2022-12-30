@@ -33,8 +33,9 @@ export const isAuth = async (req, res, next) => {
       }
 
       // 앞으로 이어지는 미들웨어에서도 동일하게 접근해야하는 데이터라면
-      // 이렇게 내가 만든 커스텀 데이터를 request에 등록해줄 수 있다
+      // 이렇게 내가 만든 커스텀 데이터를 request에 해더??에 등록해줄 수 있다
       req.userId = user.id; // req.customData 즉, bob이면 '1'을 할당
+      req.token = token;
       next();
     }
   );

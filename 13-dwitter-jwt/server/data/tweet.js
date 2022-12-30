@@ -5,13 +5,13 @@ let tweets = [
     id: '1', // 트윗 고유 아이디
     text: '드림코더분들 화이팅!',
     createdAt: new Date().toString(),
-    userId: '1', // bob
+    userId: '1', // userId는 외래키와 비슷. 1은 bob을 뜻함. 즉 bob이 쓴 글이다.
   },
   {
     id: '2', // 트윗 고유 아이디
     text: '안뇽!',
     createdAt: new Date().toString(),
-    userId: '1', // bob
+    userId: '1', // userId는 외래키와 비슷. 1은 bob을 뜻함. 즉 bob이 쓴 글이다.
   },
 ];
 
@@ -41,6 +41,7 @@ export async function getAllByUsername(username) {
   );
 }
 
+// 해당하는 트위 id를 통해서 그 트윗을 반환한다
 export async function getById(id) {
   const found = tweets.find((tweet) => tweet.id === id);
   if (!found) {

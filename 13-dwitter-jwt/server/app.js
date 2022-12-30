@@ -8,7 +8,8 @@ import authRouter from './router/auth.js';
 
 const app = express();
 
-app.use(express.json());
+// express 내부적으로 지원하는 유용한 미들웨어
+app.use(express.json()); // REST API에서 Body를 파싱할 때 쓴다. 즉 편하게 body를 읽어온다.
 app.use(helmet());
 app.use(cors());
 app.use(morgan('tiny'));
