@@ -1,6 +1,7 @@
 import socket from 'socket.io-client';
 
 export default class Socket {
+  // 소켓 통신할 때도 클라이언트가 갖고있는 jwt 토큰을 주고받는다
   constructor(baseURL, getAccessToken) {
     this.io = socket(baseURL, {
       auth: (cb) => cb({ token: getAccessToken() }),
@@ -13,7 +14,7 @@ export default class Socket {
 
   onSync(event, callback) {
     if (!this.io.connected) {
-      this.io.connect();
+      this.io.connect(); // 연결
     }
 
     this.io.on(event, (message) => callback(message));
