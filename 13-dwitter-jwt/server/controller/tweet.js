@@ -1,3 +1,4 @@
+import { getSocketIO } from '../connection/socket.js';
 import * as tweetRepository from '../data/tweet.js';
 
 // ----------------getTweets---------------------------
@@ -24,6 +25,8 @@ export async function createTweet(req, res, next) {
   const { text } = req.body;
   const tweet = await tweetRepository.create(text, req.userId);
   res.status(201).json(tweet);
+  // 새로운 트윗을 만들 때 마다 소켓에게 tweet이 생성되었다고 broadcast한다.
+  getSocketIO().emit('tweets', tweet);
 }
 
 // -----------------updateTweet----------------------------
@@ -39,7 +42,7 @@ export async function updateTweet(req, res, next) {
 
   // 나의 tweet이 아닌 것을 수정하려고하면 막는다
   if (tweet.userId !== req.userId) {
-    return res.sendStatus(403); // 403 = Forbidden 에러 : url은 유효하지만 너는 접근 못한다?
+    return res.sendStatus(403); // 403 = Forbidden 에러 : 로그인되긴했지만 너는 접근 못한다
   }
 
   const updated = await tweetRepository.update(id, text);

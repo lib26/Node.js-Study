@@ -12,10 +12,15 @@ const Tweets = memo(({ tweetService, username, addable }) => {
   const { user } = useAuth();
 
   useEffect(() => {
+    // 전체 트윗 받아오기
     tweetService
       .getTweets(username)
       .then((tweets) => setTweets([...tweets]))
       .catch(onError);
+
+    // 소켓통신. 다른 클라이언트가 트윗을 생성했을 때 서버로부터 그 트윗을 받아온다
+    const stopSync = tweetService.onSync((tweet) => onCreated(tweet));
+    return () => stopSync();
   }, [tweetService, username, user]);
 
   const onCreated = (tweet) => {
@@ -52,11 +57,7 @@ const Tweets = memo(({ tweetService, username, addable }) => {
   return (
     <>
       {addable && (
-        <NewTweetForm
-          tweetService={tweetService}
-          onError={onError}
-          onCreated={onCreated}
-        />
+        <NewTweetForm tweetService={tweetService} onError={onError} />
       )}
       {error && <Banner text={error} isAlert={true} transient={true} />}
       {tweets.length === 0 && <p className='tweets-empty'>No Tweets Yet</p>}
