@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 // 이렇게 안하고 바로 .env파일에서
 // .env 안에 환경 변수의 값이 정의되어있는지 아닌지 확인하는 함수
 // 개발 단계에서 서버를 시작하자마자 모든 것을 확인할 수 있다
-// 이렇게 코딩하면 나중에 터미널에서 환경변수만 바꿔주면 포트나 시크릿 키를 간단하게 수정할 수 있다
+// 이렇게 코딩하면 나중에 .env에서 환경변수만 바꿔주면 포트나 시크릿 키를 간단하게 수정할 수 있다
 
 dotenv.config();
 
@@ -28,4 +28,12 @@ export const config = {
   host: {
     port: parseInt(required('HOST_PORT', 8080)),
   },
+  db: {
+    host: required('DB_HOST'),
+    user: required('DB_USER'),
+    databse: required('DB_DATABASE'),
+    password: required('DB_PASSWORD'),
+    port: required('DB_PORT'),
+  },
 };
+console.log(required('DB_HOST'));
