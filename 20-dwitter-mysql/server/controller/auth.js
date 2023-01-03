@@ -42,10 +42,9 @@ export async function login(req, res) {
   const token = createJwtToken(user.id);
   res.status(200).json({ token, username });
 }
- 
+
 // 토큰 생성
 function createJwtToken(id) {
-  console.log(config.jwt.secretKey);
   return jwt.sign({ id }, config.jwt.secretKey, {
     expiresIn: config.jwt.expiresInSec,
   });
