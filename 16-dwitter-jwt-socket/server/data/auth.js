@@ -1,4 +1,5 @@
 // bob 비번 : abcd1234: $2b$12$G9xf8SFq3oTEgdj7ozHQ/uhDOyeQcUEDU8tnOcvpvApuadr3nE5Vm
+// ellie 비번 : abcd1234
 let users = [
   {
     id: '1', // 유저 DB에서 활용할 고유 ID.
