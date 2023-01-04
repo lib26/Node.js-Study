@@ -16,6 +16,7 @@ const Tweet = sequelize.define('tweet', {
     allowNull: false,
   },
 });
+// 트윗 테이블은 유저에게 존속된다. 이렇게만 하면 db에 알아서 외래키가 만들어진다
 Tweet.belongsTo(User);
 
 const INCLUDE_USER = {
@@ -24,7 +25,7 @@ const INCLUDE_USER = {
     'text',
     'createdAt',
     'userId',
-    [Sequelize.col('user.name'), 'name'],
+    [Sequelize.col('user.name'), 'name'], // 관계가 있는 테이블에서 데이터를 읽어올 때 객체를 한줄로 표현하기 위해서 이렇게 표현함
     [Sequelize.col('user.username'), 'username'],
     [Sequelize.col('user.url'), 'url'],
   ],

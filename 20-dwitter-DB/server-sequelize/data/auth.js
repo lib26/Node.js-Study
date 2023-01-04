@@ -2,8 +2,9 @@ import SQ from 'sequelize';
 import { sequelize } from '../db/database.js';
 const DataTypes = SQ.DataTypes;
 
+// user라는 테이블이 db에 없다면 스키마를 만들어준다
 export const User = sequelize.define(
-  'user',
+  'user', // 자동으로 user에 s 가 붙여져서 만들어짐
   {
     id: {
       type: DataTypes.INTEGER,
@@ -29,11 +30,11 @@ export const User = sequelize.define(
     },
     url: DataTypes.TEXT,
   },
-  { timestamps: false }
+  { timestamps: false } // createdAt, updatedAt 자동으로 생성되는 colunm 제외
 );
 
 export async function findByUsername(username) {
-  return User.findOne({ where: { username } });
+  return User.findOne({ where: { username: username } });
 }
 
 export async function findById(id) {

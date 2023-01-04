@@ -7,12 +7,11 @@ import tweetsRouter from './router/tweets.js';
 import authRouter from './router/auth.js';
 import { config } from './config.js';
 import { initSocket } from './connection/socket.js';
-import { db } from './db/database.js';
+import { sequelize } from './db/database.js';
 
 const app = express();
 
-// express 내부적으로 지원하는 유용한 미들웨어
-app.use(express.json()); // REST API에서 Body를 파싱할 때 쓴다. 즉 편하게 body를 읽어온다.
+app.use(express.json());
 app.use(helmet());
 app.use(cors());
 app.use(morgan('tiny'));
@@ -29,6 +28,10 @@ app.use((error, req, res, next) => {
   res.sendStatus(500);
 });
 
-// 서버가 열릴 때 같이 소켓도 열어준다
-const server = app.listen(config.host.port);
-initSocket(server);
+// DB 연결이 잘 되면 서버를 실행한다
+// sync는 우리 모델에서 정한 스키마가 DB 테이블로 존재하지 않으면 만들어준다
+// then을 써서 위의 사항이 잘 만들어진다면 서버 동작
+sequelize.sync().then(() => {
+  const server = app.listen(config.host.port);
+  initSocket(server);
+});
