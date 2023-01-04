@@ -7,7 +7,7 @@ const ORDER_DESC = 'ORDER BY tw.createdAt DESC';
 export async function getAll() {
   return db
     .execute(`${SELECT_JOIN} ${ORDER_DESC}`) //
-    .then((result) => result[0]);
+    .then((result) => result[0]); // 모든 트윗 리턴
 }
 
 export async function getAllByUsername(username) {
@@ -19,7 +19,7 @@ export async function getAllByUsername(username) {
 export async function getById(id) {
   return db
     .execute(`${SELECT_JOIN} WHERE tw.id=?`, [id])
-    .then((result) => result[0][0]);
+    .then((result) => result[0][0]); // 여러개의 트윗중 한개를 가져와야하기에 [0][0]
 }
 
 export async function create(text, userId) {
@@ -29,13 +29,13 @@ export async function create(text, userId) {
       new Date(),
       userId,
     ])
-    .then((result) => getById(result[0].insertId));
+    .then((result) => getById(result[0].insertId)); // 트윗 id 리턴
 }
 
 export async function update(id, text) {
   return db
     .execute('UPDATE tweets SET text=? WHERE id=?', [text, id])
-    .then(() => getById(id));
+    .then(() => getById(id)); // 해당 아이디 트윗 리턴
 }
 
 export async function remove(id) {
@@ -50,13 +50,13 @@ export async function remove(id) {
 //     id: '1', // 트윗 고유 아이디
 //     text: '드림코더분들 화이팅!',
 //     createdAt: new Date().toString(),
-//     userId: '1', // userId는 외래키와 비슷. 1은 bob을 뜻함. 즉 bob이 쓴 글이다.
+//     userId: '10', // userId는 외래키와 비슷. 1은 bob을 뜻함. 즉 bob이 쓴 글이다.
 //   },
 //   {
 //     id: '2', // 트윗 고유 아이디
 //     text: '안뇽!',
 //     createdAt: new Date().toString(),
-//     userId: '1', // userId는 외래키와 비슷. 1은 bob을 뜻함. 즉 bob이 쓴 글이다.
+//     userId: '10', // userId는 외래키와 비슷. 1은 bob을 뜻함. 즉 bob이 쓴 글이다.
 //   },
 // ];
 

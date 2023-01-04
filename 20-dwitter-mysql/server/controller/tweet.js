@@ -25,6 +25,7 @@ export async function createTweet(req, res, next) {
   const { text } = req.body;
   const tweet = await tweetRepository.create(text, req.userId);
   res.status(201).json(tweet);
+  // 소캣 통신
   // 새로운 트윗을 만들 때 마다 소켓에게 tweet이 생성되었다고 broadcast한다.
   getSocketIO().emit('tweets', tweet);
 }
