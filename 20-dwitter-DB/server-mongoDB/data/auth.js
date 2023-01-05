@@ -6,8 +6,8 @@ const ObjectID = MongoDb.ObjectID;
 // NOSQL: DB Schema X, ORM Schema
 export async function findByUsername(username) {
   return getUsers() //
-    .find({ username })
-    .next()
+    .find({ username }) // 멀티검색. 리턴값은 커서. findeOne도 가능
+    .next() // next로 하나씩 순차적 검색
     .then(mapOptionalUser);
 }
 
@@ -15,8 +15,7 @@ export async function findByUsername(username) {
 // value 또한 자동으로 오브젝트로 감싸진다는 점을 유의해야한다.
 export async function findById(id) {
   return getUsers()
-    .find({ _id: new ObjectID(id) }) // 따라서 이렇게 표현식을 써서 검색
-    .next()
+    .findOne({ _id: new ObjectID(id) }) // 따라서 이렇게 표현식을 써서 검색
     .then(mapOptionalUser); // 전달받은 인자와 호출하는 인자가 같아서 생략. return도 생략된 형태.
   // .then((data)=>return mapOptionalUser(data);) 원래 형태
 }
