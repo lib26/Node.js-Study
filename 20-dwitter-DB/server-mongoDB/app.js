@@ -7,6 +7,7 @@ import tweetsRouter from './router/tweets.js';
 import authRouter from './router/auth.js';
 import { config } from './config.js';
 import { initSocket } from './connection/socket.js';
+import { connectDB } from './database/database.js';
 
 const app = express();
 
