@@ -12,10 +12,12 @@ export async function connectDB() {
   });
 }
 
+// 사용자 collection 전달 함수
 export function getUsers() {
-  return db.collection('users');
+  return db.collection('users'); // 컬렉션 이름은 마음대로
 }
 
+// 트윗 collection 전달 함수
 export function getTweets() {
   return db.collection('tweets');
 }

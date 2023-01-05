@@ -7,6 +7,7 @@ import { isAuth } from '../middleware/auth.js';
 
 const router = express.Router();
 
+// 유효성 검사
 const validateCredential = [
   body('username')
     .trim()
@@ -26,13 +27,18 @@ const validateSignup = [
   body('url')
     .isURL()
     .withMessage('invalid URL')
-    .optional({ nullable: true, checkFalsy: true }),
+    .optional({ nullable: true, checkFalsy: true }), // 옵션이니까 데이터가 없거나 텅텅빈 문자열이어도 허용해준다
   validate,
 ];
+
+// POST /auth/signup
 router.post('/signup', validateSignup, authController.signup);
 
+// POST /auth/login
 router.post('/login', validateCredential, authController.login);
 
+// GET /auth/me
+// 로그인이 되어있다면 isAuth로 토큰을 확인하고 컨트롤러 처리
 router.get('/me', isAuth, authController.me);
 
 export default router;
