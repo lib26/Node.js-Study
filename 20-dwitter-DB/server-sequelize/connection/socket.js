@@ -6,7 +6,8 @@ class Socket {
   constructor(server) {
     this.io = new Server(server, {
       cors: {
-        origin: '*', // 어디서 오는 클라이언트든 다 받겠다? 그런의미 일듯
+        origin: config.cors.allowedOrigin,
+        // origin: '*', // 어디서 오는 클라이언트든 다 받겠다? 그런의미 일듯
       },
     });
 

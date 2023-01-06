@@ -25,13 +25,12 @@ export const config = {
   bcrypt: {
     saltRounds: parseInt(required('BCRYPT_SALT_ROUNDS', 12)),
   },
-  host: {
-    port: parseInt(required('HOST_PORT', 8080)),
-  },
   db: {
     host: required('DB_HOST'),
     user: required('DB_USER'),
     database: required('DB_DATABASE'),
     password: required('DB_PASSWORD'),
   },
+  port: parseInt(required('PORT', 8080)), // platform 배포에서는 port로 바꿔야한다
+  cors: { allowedOrigin: required('CORS_ALLOW_ORIGIN') },
 };

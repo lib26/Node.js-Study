@@ -11,9 +11,14 @@ import { sequelize } from './db/database.js';
 
 const app = express();
 
+const corsOption = {
+  origin: config.cors.allowedOrigin,
+  optionSuccessStatus: 200, // 옛날 브라우저 버전을 위한 설정
+};
+
 app.use(express.json());
 app.use(helmet());
-app.use(cors());
+app.use(cors(corsOption));
 app.use(morgan('tiny'));
 
 app.use('/tweets', tweetsRouter);
@@ -32,6 +37,7 @@ app.use((error, req, res, next) => {
 // sync는 우리 모델에서 정한 스키마가 DB 테이블로 존재하지 않으면 만들어준다
 // then을 써서 위의 사항이 잘 만들어진다면 서버 동작
 sequelize.sync().then(() => {
-  const server = app.listen(config.host.port);
+  console.log(`Server is started.... ${new Date()}`);
+  const server = app.listen(config.port);
   initSocket(server);
 });
