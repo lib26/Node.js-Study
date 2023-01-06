@@ -11,7 +11,7 @@ export async function findByUsername(username) {
     .then(mapOptionalUser);
 }
 
-// 몽고디비는 컬렉션에 아이디를 생성할 때 _id로 key값이 잡히고
+// 몽고디비는 컬렉션에 아이디를 생성할 때 자동으로 _id라는 key값이 잡히고
 // value 또한 자동으로 오브젝트로 감싸진다는 점을 유의해야한다.
 export async function findById(id) {
   return getUsers()
@@ -26,6 +26,7 @@ export async function createUser(user) {
     .then((result) => result.ops[0]._id.toString()); // 유저 id 리턴
 }
 
+// id를 추가해준다
 function mapOptionalUser(user) {
   return user ? { ...user, id: user._id.toString() } : user;
 }

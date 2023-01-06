@@ -5,7 +5,7 @@ import { config } from '../config.js';
 let db;
 export async function connectDB() {
   return MongoDb.MongoClient.connect(config.db.host, {
-    useNewUrlParser: true,
+    useNewUrlParser: true, // 옵션들
     useUnifiedTopology: true,
   }).then((client) => {
     db = client.db();
