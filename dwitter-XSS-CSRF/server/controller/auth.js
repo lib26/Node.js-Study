@@ -38,6 +38,7 @@ export async function login(req, res) {
   res.status(200).json({ token, username });
 }
 
+// 로그아웃을 하면 헤더 쿠키에 토큰을 빈칸으로 리셋해서 보낸다
 export async function logout(req, res, next) {
   res.cookie('token', '');
   res.status(200).json({ message: 'User has been logged out' });
@@ -49,6 +50,7 @@ function createJwtToken(id) {
   });
 }
 
+// 서버에서 토큰을 해더의 쿠키로 브라우저에 전달
 function setToken(res, token) {
   const options = {
     maxAge: config.jwt.expiresInSec * 1000,
@@ -57,6 +59,8 @@ function setToken(res, token) {
     secure: true,
   };
   res.cookie('token', token, options); // HTTP-ONLY 🍪
+  // 쿠키를 받은 브라우저는 해더에 쿠키를 자동 포함해서 서버랑 통신한다
+  // 따라서 auth 미들웨어에서 유효 검사를 해줘야한다
 }
 
 export async function me(req, res, next) {

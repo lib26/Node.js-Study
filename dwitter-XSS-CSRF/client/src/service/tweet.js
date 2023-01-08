@@ -4,6 +4,7 @@ export default class TweetService {
     this.socket = socket;
   }
 
+  // 더이상 토큰을 JS로컬에 저장하지 않는다.
   async getTweets(username) {
     const query = username ? `?username=${username}` : '';
     return this.http.fetch(`/tweets${query}`, {

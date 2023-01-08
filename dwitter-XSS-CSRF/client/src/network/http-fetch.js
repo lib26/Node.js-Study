@@ -13,7 +13,7 @@ export default class HttpClient {
         ...options.headers,
         '_csrf-token': this.getCsrfToken(),
       },
-      credentials: 'include',
+      credentials: 'include', // 쿠키 허용?
     });
     let data;
     try {
