@@ -39,6 +39,7 @@ export async function login(req, res) {
 }
 
 // 로그아웃을 하면 헤더 쿠키에 토큰을 빈칸으로 리셋해서 보낸다
+// 즉 클라 브라우저 쿠키에 토큰이 없도록 한다
 export async function logout(req, res, next) {
   res.cookie('token', '');
   res.status(200).json({ message: 'User has been logged out' });

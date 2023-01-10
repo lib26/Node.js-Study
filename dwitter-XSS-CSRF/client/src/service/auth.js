@@ -3,6 +3,7 @@ export default class AuthService {
     this.http = http;
   }
 
+
   async signup(username, password, name, email, url) {
     return this.http.fetch('/auth/signup', {
       method: 'POST',
