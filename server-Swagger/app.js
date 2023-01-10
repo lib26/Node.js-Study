@@ -27,6 +27,7 @@ app.use(helmet());
 app.use(cors(corsOption));
 app.use(morgan('tiny'));
 
+// api-docs 는 사용자에게 swagger에 있는 api 정의를 보여준다. yaml -> json
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(openAPIDocument));
 app.use('/tweets', tweetsRouter);
 app.use('/auth', authRouter);
@@ -46,6 +47,7 @@ app.use(
   })
 );
 
+// 라우팅을 api 문서대로 자동화한다
 function modulePathResolver(_, route, apiDoc) {
   const pathKey = route.openApiRoute.substring(route.basePath.length);
   const operation = apiDoc.paths[pathKey][route.method.toLowerCase()];
